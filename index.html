@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语时态魔法进阶 - V23.0</title>
+    <style>
+        :root { 
+            --now-color: #0984e3; --habit-color: #27ae60; --past-color: #e67e22; 
+            --future-color: #6c5ce7; --error-red: #d63031; --bg-light: #f4f7f6;
+        }
+        body { font-family: 'Segoe UI', 'PingFang SC', sans-serif; background: var(--bg-light); padding: 15px; line-height: 1.4; }
+        .container { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border-top: 10px solid #2d3436; }
+        
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { margin: 0; font-size: 30px; color: #2d3436; }
+        .header p { color: #7f8c8d; font-size: 16px; margin-top: 5px; font-weight: bold; }
+        
+        /* 魔法秘籍区 */
+        .rule-book { background: #fff; border: 2px solid #dfe6e9; border-radius: 12px; padding: 20px; margin-bottom: 25px; }
+        .rule-book h2 { font-size: 20px; margin-top: 0; text-align: center; color: #2d3436; margin-bottom: 15px; }
+        .rule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+        .rule-column { padding: 15px; border-radius: 10px; border: 1px solid #eee; background: #fff; }
+        .rule-list { list-style: none; padding: 0; margin: 0; font-size: 13px; }
+        .h-emp { color: var(--habit-color); font-weight: bold; }
+        .n-emp { color: var(--now-color); font-weight: bold; }
+        .p-emp { color: var(--past-color); font-weight: bold; }
+        .f-emp { color: var(--future-color); font-weight: bold; }
+
+        /* 探险导航 - 2x2 网格 */
+        .example-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .example-item { padding: 15px; border-radius: 12px; border: 1px solid #eee; border-left: 8px solid #ccc; background: #fff; }
+        .example-item.now { border-left-color: var(--now-color); }
+        .example-item.habit { border-left-color: var(--habit-color); }
+        .example-item.past { border-left-color: var(--past-color); }
+        .example-item.future { border-left-color: var(--future-color); }
+        
+        .tense-tag { display: inline-block; padding: 2px 10px; border-radius: 5px; color: white; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
+        .ref-sentence { font-size: 18px; margin-bottom: 12px; color: #34495e; font-weight: 500; }
+        
+        /* 详细规则展示 */
+        .rule-detail { background: #f9f9f9; padding: 12px; border-radius: 8px; font-size: 13px; color: #57606f; }
+        .formula-line { color: var(--error-red); font-weight: bold; display: block; margin-bottom: 5px; }
+
+        /* 文本色彩标记 */
+        .t-signal { color: var(--now-color); font-weight: bold; text-decoration: underline; }
+        .v-form { color: var(--error-red); font-weight: bold; }
+
+        /* 输入与任务 */
+        .input-section { background: #f1f2f6; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px; }
+        input[type="text"] { padding: 12px; border: 2px solid #ddd; border-radius: 8px; width: 240px; font-size: 17px; outline: none; }
+        button.main-btn { padding: 12px 25px; background: #2d3436; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin-left: 10px; }
+
+        .result-wrapper { display: flex; flex-direction: column; gap: 20px; }
+        .result-wrapper.split { display: grid; grid-template-columns: 1fr 1fr; }
+        .quiz-container { background: #fffcf4; padding: 25px; border-radius: 15px; border: 2px solid #f39c12; }
+        .quiz-item { margin-bottom: 20px; font-size: 18px; line-height: 1.6; }
+        .quiz-input { border: none; border-bottom: 2px solid #f39c12; background: transparent; width: 140px; text-align: center; font-size: 18px; font-weight: bold; outline: none; color: #e67e22; }
+
+        .analysis-container { background: #eaffed; padding: 25px; border-radius: 15px; border: 2px solid var(--habit-color); display: none; }
+        .exp-item { margin-bottom: 15px; padding: 15px; background: white; border-radius: 10px; border-left: 5px solid var(--habit-color); font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🚀 魔法动词探险实验室</h1>
+        <p>英语时态魔法进阶</p>
+    </div>
+
+    <div class="rule-book">
+        <h2>📜 魔法拼写秘籍</h2>
+        <div class="rule-grid">
+            <div class="rule-column" style="border-top: 5px solid var(--habit-color);">
+                <b class="h-emp">① 一般现在时 (三单)</b>
+                <ul class="rule-list">
+                    <li>1. 一般词：+ <b class="h-emp">s</b> (like➔like<b>s</b>)</li>
+                    <li>2. s, x, ch, sh, o：+ <b class="h-emp">es</b> (go➔go<b>es</b>)</li>
+                    <li>3. 辅+y：变 y 为 i + <b class="h-emp">es</b> (stud<b>ies</b>)</li>
+                    <li>4. 特例：<b>have➔<span class="h-emp">has</span></b> | <b>be➔<span class="h-emp">is</span></b></li>
+                </ul>
+            </div>
+            <div class="rule-column" style="border-top: 5px solid var(--now-color);">
+                <b class="n-emp">② 现在进行时 (be+v-ing)</b>
+                <ul class="rule-list">
+                    <li>1. 一般词：直接 + <b class="n-emp">ing</b> (read<b>ing</b>)</li>
+                    <li>2. 去e：去不发音 e + <b class="n-emp">ing</b> (mak<b>ing</b>)</li>
+                    <li>3. ie：变 ie 为 y + <b class="n-emp">ing</b> (ly<b>ing</b>)</li>
+                    <li>4. 双写：辅+元+辅结尾，双写末尾 + <b class="n-emp">ing</b> (run<b>ning</b>)</li>
+                </ul>
+            </div>
+            <div class="rule-column" style="border-top: 5px solid var(--past-color);">
+                <b class="p-emp">③ 一般过去时 (Past)</b>
+                <ul class="rule-list">
+                    <li>1. 一般：+ <b class="p-emp">ed</b> | e结尾：+ <b class="p-emp">d</b></li>
+                    <li>2. 辅+y：变 y 为 i + <b class="p-emp">ed</b> (cri<b>ed</b>)</li>
+                    <li>3. 双写：末尾双写 + <b class="p-emp">ed</b> (stop<b>ped</b>)</li>
+                    <li>4. <b class="p-emp">警惕黑魔法：</b><b>go➔went, sing➔sang, make➔made, eat➔ate, do➔did, see➔saw, fly➔flew, win➔won</b></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-section">
+        <input type="text" id="verbInput" placeholder="输入核心动词 (eat, make, study...)">
+        <button class="main-btn" onclick="questSystem.start()">开启冒险</button>
+    </div>
+
+    <div id="learningArea" style="display:none;">
+        <h3 style="font-size: 22px; border-left: 6px solid #2d3436; padding-left: 12px; margin-bottom: 20px;">🗺️ 探险导航 (Learning Map)</h3>
+        <div class="example-grid" id="exampleContainer"></div>
+
+        <h3 style="font-size: 22px; border-left: 6px solid #f39c12; padding-left: 12px; margin-bottom: 20px;">⚔️ 魔法任务 (Quest Time)</h3>
+        <div class="result-wrapper" id="resultWrapper">
+            <div class="quiz-container">
+                <div id="quizList"></div>
+                <button onclick="questSystem.check()" style="background: #f39c12; color:white; border:none; border-radius:10px; padding:15px; width: 100%; cursor:pointer; font-weight:bold; margin-top:15px; font-size: 18px;">提交任务并对比锦囊</button>
+            </div>
+            <div class="analysis-container" id="analysisContainer">
+                <h4 style="margin:0; color: var(--habit-color); font-size: 18px;">🔮 智慧锦囊 (Wisdom Mirror)</h4>
+                <div id="explanationContent" style="margin-top:10px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const questSystem = {
+    subjects: ["a funny alien", "my English teacher", "the little monkey", "two brave girls", "a flying car", "my grandpa", "a smart robot", "the hungry dragon", "a cute panda", "the young explorer", "my clever cat", "a space astronaut"],
+    
+    signals: {
+        NOW: ["Look!", "Listen!", "At this moment,", "Right now,", "Be quiet!"],
+        HABIT: ["On Fridays,", "Twice a week,", "Usually,", "Every weekend,", "On Saturdays,"],
+        PAST: ["Long long ago,", "When I was five,", "Three years ago,", "Last winter,", "Yesterday morning,"],
+        FUTURE: ["In 2030,", "Next month,", "Soon,", "In the near future,", "Next summer,"]
+    },
+
+    collocation: {
+        "eat": ["a green pizza", "magic fruit", "healthy apples", "dinner on Mars", "bamboo", "hot soup", "a big sandwich", "some cookies"],
+        "make": ["a paper plane", "a giant cake", "a big mess", "a singing robot", "a new friend", "a card", "a birdhouse", "a kite"],
+        "do": ["the homework", "magic tricks", "morning exercise", "a great job", "the chores", "the puzzles", "some sport", "the laundry"],
+        "study": ["stars and planets", "ancient history", "English words", "how birds fly", "the star map", "math", "science", "magic spells"],
+        "play": ["soccer with friends", "the piano", "hide-and-seek", "video games", "chess", "basketball", "the violin", "with a ball"],
+        "fly": ["a spaceship", "a colorful kite", "to the moon", "a drone", "across the sea", "to Mars", "in the sky", "a plane"],
+        "sing": ["a happy song", "on the stage", "with the birds", "very loudly", "a sweet poem", "together", "in the shower", "at the party"],
+        "have": ["a birthday party", "a hot bath", "a gold horse", "a robot helper", "a magic cave", "a blue dragon", "a lunch box", "a new bike"]
+    },
+
+    irregulars: {
+        "go": {ed:"went", s:"goes"}, "sing": {ed:"sang"}, "make": {ed:"made"}, "eat": {ed:"ate"}, 
+        "do": {ed:"did", s:"does"}, "see": {ed:"saw"}, "fly": {ed:"flew", s:"flies"}, "win": {ed:"won"},
+        "have": {ed:"had", s:"has"}, "run": {ed:"ran", ing:"running"}, "swim": {ed:"swam", ing:"swimming"}
+    },
+
+    getAdventureNotes(v, tense) {
+        const verb = v.toLowerCase();
+        if (tense === 'HABIT') {
+            if (this.irregulars[verb]?.s) return `注意三单变体：<b class="h-emp">${this.irregulars[verb].s}</b>。`;
+            if (verb.match(/(s|x|ch|sh|o)$/)) return `末尾是特殊字母，加 <b class="h-emp">es</b>。`;
+            if (verb.endsWith('y') && !verb.match(/[aeiou]y$/)) return `变 y 为 i 再加 <b class="h-emp">es</b>。`;
+            return `单数主语，动词直接加 <b class="h-emp">s</b>。`;
+        }
+        if (tense === 'NOW') {
+            if (this.irregulars[verb]?.ing) return `重读闭音节，需要双写字母加 <b class="n-emp">ing</b>。`;
+            if (verb.endsWith('e')) return `去不发音的 e 加 <b class="n-emp">ing</b>。`;
+            return `动作正在进行，动词直接加 <b class="n-emp">ing</b>。`;
+        }
+        if (tense === 'PAST') {
+            if (this.irregulars[verb]?.ed) return `发现黑魔法！过去式为：<b class="p-emp">${this.irregulars[verb].ed}</b>。`;
+            if (verb.endsWith('y') && !verb.match(/[aeiou]y$/)) return `变 y 为 i 再加 <b class="p-emp">ed</b>。`;
+            return `一般情况，动词后面直接加 <b class="p-emp">ed</b>。`;
+        }
+        return "直接使用动词原形。";
+    },
+
+    getForms(v) {
+        let verb = v.toLowerCase().trim();
+        let f = {
+            base: verb,
+            ing: verb.endsWith('e') ? verb.slice(0, -1) + 'ing' : (verb.match(/[aeiou][b-df-hj-np-tv-z]$/) && verb.length <= 4 ? verb + verb.slice(-1) + 'ing' : verb + 'ing'),
+            s: verb.endsWith('y') && !/[aeiou]y$/.test(verb) ? verb.slice(0, -1) + 'ies' : (verb.match(/(s|sh|ch|x|o)$/) ? verb + 'es' : verb + 's'),
+            ed: verb.endsWith('y') && !/[aeiou]y$/.test(verb) ? verb.slice(0, -1) + 'ied' : (verb.endsWith('e') ? verb + 'd' : verb + 'ed'),
+            will: "will " + verb
+        };
+        if (this.irregulars[verb]) Object.assign(f, this.irregulars[verb]);
+        return f;
+    },
+
+    buildSentence(sig, sub, vPart, obj, isExample = false, tenseKey = "") {
+        let first = sig.charAt(0).toUpperCase() + sig.slice(1);
+        let lowerSub = (sig.endsWith(',') || sig.toLowerCase().includes('moment')) ? (sub.charAt(0).toLowerCase() + sub.slice(1)) : (sub.charAt(0).toUpperCase() + sub.slice(1));
+        
+        let formattedVerb = vPart;
+        if (isExample) {
+            let vClass = "";
+            if (tenseKey === 'NOW') vClass = "n-emp";
+            if (tenseKey === 'HABIT') vClass = "h-emp";
+            if (tenseKey === 'PAST') vClass = "p-emp";
+            if (tenseKey === 'FUTURE') vClass = "f-emp";
+            formattedVerb = `<span class="v-form ${vClass}">${vPart}</span>`;
+        }
+        return `<span class="t-signal">${first}</span> ${lowerSub} ${formattedVerb} ${obj}.`.replace(/\s+/g, ' ').replace(/ ,/g, ',');
+    },
+
+    start() {
+        const v = document.getElementById('verbInput').value.toLowerCase().trim();
+        if(!this.collocation[v]) { alert("教研提示：请输入推荐核心动词（如 eat, make, study, fly, do）。"); return; }
+        
+        document.getElementById('resultWrapper').classList.remove('split');
+        document.getElementById('analysisContainer').style.display = 'none';
+        
+        const f = this.getForms(v);
+        const objs = [...this.collocation[v]].sort(() => Math.random() - 0.5);
+        const subs = [...this.subjects].sort(() => Math.random() - 0.5);
+        const keys = [
+            { id: 'NOW', label: '现在进行时', color: 'now', formula: 'be + v-ing' },
+            { id: 'HABIT', label: '一般现在时', color: 'habit', formula: 'v + s/es' },
+            { id: 'PAST', label: '一般过去时', color: 'past', formula: 'v-ed' },
+            { id: 'FUTURE', label: '一般将来时', color: 'future', formula: 'will + 原形' }
+        ];
+        
+        document.getElementById('exampleContainer').innerHTML = keys.map((k, i) => {
+            const sig = this.signals[k.id][0];
+            const ans = k.id==='NOW' ? `is ${f.ing}` : (k.id==='HABIT' ? f.s : (k.id==='PAST' ? f.ed : f.will));
+            const notes = this.getAdventureNotes(v, k.id);
+            return `
+                <div class="example-item ${k.color}">
+                    <span class="tense-tag" style="background:var(--${k.color}-color)">${k.label}</span>
+                    <div class="ref-sentence">${this.buildSentence(sig, subs[i], ans, objs[i], true, k.id)}</div>
+                    <div class="rule-detail">
+                        <span class="formula-line">✨ 咒语公式：${k.formula}</span>
+                        💡 探险笔记：${notes}
+                    </div>
+                </div>`;
+        }).join('');
+
+        this.currentTasks = keys.sort(() => Math.random() - 0.5).map((k, i) => {
+            const sig = this.signals[k.id][Math.floor(Math.random()*4 + 1) % 5];
+            const sub = subs[i + 4];
+            const obj = objs[i + 4];
+            const ans = k.id==='NOW' ? `is ${f.ing}` : (k.id==='HABIT' ? f.s : (k.id==='PAST' ? f.ed : f.will));
+            return { ans, label: k.label, id: k.id, sig, q: this.buildSentence(sig, sub, "_________", obj, false, "") };
+        });
+
+        document.getElementById('quizList').innerHTML = this.currentTasks.map((t, i) => `
+            <div class="quiz-item">${i+1}. ${t.q.replace('_________', `<input class="quiz-input" id="q${i}" autocomplete="off">`)} (${v})</div>`).join('');
+        document.getElementById('learningArea').style.display = 'block';
+    },
+
+    check() {
+        let html = "";
+        this.currentTasks.forEach((t, i) => {
+            const input = document.getElementById(`q${i}`);
+            const isCorrect = input.value.trim().toLowerCase() === t.ans.toLowerCase();
+            let vClass = "";
+            if (t.id === 'NOW') vClass = "n-emp";
+            if (t.id === 'HABIT') vClass = "h-emp";
+            if (t.id === 'PAST') vClass = "p-emp";
+            if (t.id === 'FUTURE') vClass = "f-emp";
+            
+            input.style.color = isCorrect ? 'var(--habit-color)' : 'var(--error-red)';
+            html += `
+                <div class="exp-item">
+                    <b>任务 ${i+1}：${isCorrect?'✅ 探险成功':'❌ 迷失方向'}</b><br>
+                    标准答案：<span class="${vClass}">${t.ans}</span><br>
+                    锦囊：信号词 <span class="t-signal">${t.sig}</span> 属于 <b>${t.label}</b>。
+                </div>`;
+        });
+        document.getElementById('resultWrapper').classList.add('split');
+        document.getElementById('analysisContainer').style.display = 'block';
+        document.getElementById('explanationContent').innerHTML = html;
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+};
+</script>
+</body>
+</html>
